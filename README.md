@@ -28,7 +28,7 @@ An elastic-search based session driver for Laravel 5.1
     ```
     Values shown above are the default values in case you did not configure.
 
-###Index/Type mapping
+##Index/Type mapping
 Elastic will detect the mapping by default, however, it is recommended to set the mapping explicitly.
 
 You can do so manually by applying this mapping to the index and type:
