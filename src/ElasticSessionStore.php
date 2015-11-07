@@ -65,6 +65,9 @@ class ElasticSessionStore extends TypeQuery implements SessionHandlerInterface {
 
     public function read($sessionId) {
         $model = @$this->find($sessionId);
+        if (!$model) {
+            return null;
+        }
         $this->_cache[$sessionId] = $model;
         return $model->data;
     }
