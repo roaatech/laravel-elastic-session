@@ -1,4 +1,4 @@
-# laravel-elastic-sessions
+# Laravel Elastic Session Driver
 An elastic-search based session driver for Laravel 5.1
 
 ##How to use
