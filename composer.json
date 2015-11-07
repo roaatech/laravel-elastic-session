@@ -1,0 +1,25 @@
+{
+    "name": "itvisionsy/laravel-elastic-session",
+    "description": "A laravel 5.1 session driver on elasticsearch",
+    "require": {
+        "php": ">=5.5.0",
+        "laravel/laravel": "5.1.*",
+        "itvisionsy/php-es-orm": "1.4.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0@dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Muhannad Shelleh",
+            "email": "muhannad.shelleh@itvision-sy.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "ItvisionSy\\LaravelElasticSessionDriver\\": "src"
+        }
+    }
+}
