@@ -47,7 +47,6 @@ class ElasticSessionStore extends TypeQuery implements SessionHandlerInterface {
                 ]
             ]
         ];
-        dd(json_encode($mappingParams));
         $client->indices()->putMapping($mappingParams);
     }
 
