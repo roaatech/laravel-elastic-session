@@ -4,7 +4,7 @@
     "require": {
         "php": ">=5.5.0",
         "laravel/laravel": "5.1.*",
-        "itvisionsy/php-es-orm": "1.4.*"
+        "itvisionsy/php-es-orm": "^1"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.0@dev"
