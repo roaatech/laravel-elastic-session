@@ -74,7 +74,7 @@ class ElasticSessionStore extends TypeQuery implements SessionHandlerInterface {
     public function write($sessionId, $sessionData) {
         $updatedTs = Carbon::now()->toIso8601String();
         $createdTs = array_key_exists($sessionId, $this->_cache) ? $this->_cache[$sessionId]->created : $updatedTs;
-        static::index(['data' => $sessionData, 'created' => $createdTs, 'updated' => $updatedTs], $sessionId, []);
+        static::create(['data' => $sessionData, 'created' => $createdTs, 'updated' => $updatedTs], $sessionId, ["api" => "index"]);
     }
 
     public function destroy($sessionId) {
