@@ -35,6 +35,7 @@ class ElasticSessionStore extends TypeQuery implements SessionHandlerInterface {
 
     public static function putMapping() {
         $config = config('session.elastic', static::$defaultConfig);
+        $ttl = $this->getTTL();
         $client = new \Elasticsearch\Client(['hosts' => [$config['url']]]);
         $mappingParams = [
             'index' => $config['index'],
@@ -45,7 +46,7 @@ class ElasticSessionStore extends TypeQuery implements SessionHandlerInterface {
                     'updated' => ['type' => 'date'],
                     'data' => ['type' => 'string', 'index' => 'no'],
                 ],
-                '_ttl' => (@$config['ttl'] ? ['enabled' => true, 'default' => @$config['ttl']? : '15m'] : ['enabled' => false])
+                '_ttl' => ($ttl ? ['enabled' => true, 'default' => $ttl? : '30m'] : ['enabled' => false])
             ]
         ];
         $client->indices()->putMapping($mappingParams);
@@ -75,7 +76,8 @@ class ElasticSessionStore extends TypeQuery implements SessionHandlerInterface {
     public function write($sessionId, $sessionData) {
         $updatedTs = Carbon::now()->toIso8601String();
         $createdTs = array_key_exists($sessionId, $this->_cache) ? $this->_cache[$sessionId]->created : $updatedTs;
-        static::create(['data' => $sessionData, 'created' => $createdTs, 'updated' => $updatedTs, '_ttl' => config('session.elastic.ttl', '15m')], $sessionId, ["api" => "index"]);
+        $ttl = $this->getTTL();
+        static::create(['data' => $sessionData, 'created' => $createdTs, 'updated' => $updatedTs] + ($ttl ? ['_ttl' => $ttl] : []), $sessionId, ["api" => "index"]);
     }
 
     public function destroy($sessionId) {
@@ -92,6 +94,12 @@ class ElasticSessionStore extends TypeQuery implements SessionHandlerInterface {
 
     public function type() {
         return $this->sessionConfig['type'];
+    }
+
+    protected function getTTL() {
+        $ttl = config('session.lifetime', 30);
+        $ttl.=$ttl ? 'm' : '';
+        return !!$ttl ? $ttl : false;
     }
 
 }
