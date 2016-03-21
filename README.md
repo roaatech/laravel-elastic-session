@@ -23,11 +23,11 @@ An elastic-search based session driver for Laravel 5.1
     "elastic" => [
         "url" => "http://localhost:9200/",
         "index" => "laravel-es-sessions",
-        "type" => "session",
-        'ttl' => '15m' //check https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-ttl-field.html#_default_ttl
+        "type" => "session"
     ],
+    "lifetime" => 30
     ```
-    Values shown above are the default values in case you did not configure.
+    Values shown above for elastic parameter are the default values in case you did not configure.
 
 ##Index/Type mapping
 Elastic will detect the mapping by default, however, it is recommended to set the mapping explicitly.
