@@ -44,7 +44,8 @@ class ElasticSessionStore extends TypeQuery implements SessionHandlerInterface {
                     'created' => ['type' => 'date'],
                     'updated' => ['type' => 'date'],
                     'data' => ['type' => 'string', 'index' => 'no'],
-                ]
+                ],
+                '_ttl' => (@$config['ttl'] ? ['enabled' => true, 'default' => @$config['ttl']? : '15m'] : ['enabled' => false])
             ]
         ];
         $client->indices()->putMapping($mappingParams);
@@ -74,7 +75,7 @@ class ElasticSessionStore extends TypeQuery implements SessionHandlerInterface {
     public function write($sessionId, $sessionData) {
         $updatedTs = Carbon::now()->toIso8601String();
         $createdTs = array_key_exists($sessionId, $this->_cache) ? $this->_cache[$sessionId]->created : $updatedTs;
-        static::create(['data' => $sessionData, 'created' => $createdTs, 'updated' => $updatedTs], $sessionId, ["api" => "index"]);
+        static::create(['data' => $sessionData, 'created' => $createdTs, 'updated' => $updatedTs, '_ttl' => config('session.elastic.ttl', '15m')], $sessionId, ["api" => "index"]);
     }
 
     public function destroy($sessionId) {
