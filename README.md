@@ -23,7 +23,8 @@ An elastic-search based session driver for Laravel 5.1
     "elastic" => [
         "url" => "http://localhost:9200/",
         "index" => "laravel-es-sessions",
-        "type" => "session"
+        "type" => "session",
+        'ttl' => '15m' //check https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-ttl-field.html#_default_ttl
     ],
     ```
     Values shown above are the default values in case you did not configure.
@@ -42,6 +43,10 @@ You can do so manually by applying this mapping to the index and type:
             "created":{"type":"date"},
             "updated":{"type":"date"},
             "data":{"type":"string","index":"no"}
+        },
+        "_ttl":{
+            "enabled":true,
+            "default":"15m"
         }
     }
 }
