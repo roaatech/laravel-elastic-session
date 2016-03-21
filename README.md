@@ -46,7 +46,7 @@ You can do so manually by applying this mapping to the index and type:
         },
         "_ttl":{
             "enabled":true,
-            "default":"15m"
+            "default":"30m"
         }
     }
 }
@@ -57,6 +57,9 @@ Or simpler, the package can do it for you. You will need to tinker `./artisan ti
 ```php
 \ItvisionSy\LaravelElasticSessionDriver\ElasticSessionStore::putMapping();
 ```
+
+Please note that the `putMapping()` method will automatically read the values from your sessions config file 
+including the session.lifetime which will be used as the default TTL value.
 
 ## Author
 Muhannad Shelleh <muhannad.shelleh@live.com>
