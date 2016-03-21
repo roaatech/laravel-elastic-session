@@ -59,7 +59,7 @@ Or simpler, the package can do it for you. You will need to tinker `./artisan ti
 ```
 
 Please note that the `putMapping()` method will automatically read the values from your sessions config file 
-including the session.lifetime which will be used as the default TTL value.
+including the `session.lifetime` value (in minutes) which will be used as the default TTL value.
 
 ## Author
 Muhannad Shelleh <muhannad.shelleh@live.com>
