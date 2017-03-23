@@ -1,7 +1,7 @@
 # Laravel Elastic Session Driver
 An elastic-search based session driver for Laravel 5.1
 
-##How to use
+## How to use
  1. Require it via composer
 
     ```
@@ -29,7 +29,7 @@ An elastic-search based session driver for Laravel 5.1
     ```
     Values shown above for elastic parameter are the default values in case you did not configure.
 
-##Index/Type mapping
+## Index/Type mapping
 Elastic will detect the mapping by default, however, it is recommended to set the mapping explicitly.
 
 You can do so manually by applying this mapping to the index and type:
